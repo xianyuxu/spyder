@@ -47,6 +47,7 @@ print(f'In the adjusted image ((img+150)*1.3), mean={img_adj.mean()}, std={img_a
 
 cv2.waitKey( 0 )
 cv2.destroyAllWindows()
+1234
 
 
 

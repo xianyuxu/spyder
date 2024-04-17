@@ -1,17 +1,22 @@
-from PIL import Image, ImageFilter
+from PIL import Image
 
-# 開啟影像
+# 開啟照片
 image = Image.open("over_exposure_grey.jpg")
 
-# 使用邊緣增強濾鏡增強影像
-enhanced_image = image.filter(ImageFilter.EDGE_ENHANCE)
+# 降低亮度
+darkened_image = Image.new(image.mode, image.size)
+pixels = darkened_image.load()
 
-# 顯示原始影像和增強後的影像
-image.show(title="Original Image")
-enhanced_image.show(title="Enhanced Image")
+for i in range(image.size[0]):
+    for j in range(image.size[1]):
+        # 取得原始像素值
+        pixel_value = image.getpixel((i, j))
 
-# 儲存增強後的影像
-enhanced_image.save("edge_enhanced_over_exposure_grey.jpg")
+        # 降低亮度
+        new_pixel_value = int(pixel_value * 0.5)
 
-# 邊緣增強是一種影像增強技術，它通過增強影像中的邊緣特徵來提高影像的對比度和清晰度。
-# 使用邊緣增強濾鏡可以使影像中的邊緣更加鮮明，從而使物體的輪廓更加清晰。
+        # 設置新的像素值
+        pixels[i, j] = new_pixel_value
+
+# 儲存降低亮度後的照片
+darkened_image.save("darkened_over_exposure.jpg")
